@@ -2,42 +2,34 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-import Lifecycles from './lifecycles.component';
+import Person from './person.component';
 
 class App extends React.Component {
   constructor() {
     super();
 
     this.state = {
-      showChild: true,
-      text: ''
+      count: 0,
+      person: { name: 'Jack', age: 22 },
+      showPerson: false
     };
   }
 
   render() {
+    const { count, person, showPerson } = this.state;
+
     return (
       <div className='App'>
         <header className='App-header'>
           <img src={logo} className='App-logo' alt='logo' />
-          <button
-            onClick={() =>
-              this.setState(state => ({
-                showChild: !state.showChild
-              }))
-            }
-          >
-            Toggle Lifecycles
+          {showPerson ? <Person person={person} /> : null}
+          Button Count: {count}
+          <button onClick={() => this.setState({ count: count + 1 })}>
+            Increase Count
           </button>
-          <button
-            onClick={() =>
-              this.setState(state => ({
-                text: state.text + '_hello'
-              }))
-            }
-          >
-            Update Text
+          <button onClick={() => this.setState({ showPerson: !showPerson })}>
+            Toggle Person
           </button>
-          {this.state.showChild ? <Lifecycles text={this.state.text} /> : null}
         </header>
       </div>
     );
